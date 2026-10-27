@@ -48,7 +48,9 @@ jobs:
             2. Lee CLAUDE.md y el código relevante (game.js, index.html) para entender el problema.
             3. Lista labels con `gh label list`. Aplica los apropiados SOLO de los existentes con
                `gh issue edit ${{ github.event.issue.number }} --add-label "<l1>,<l2>"`. No crees labels ni quites los existentes.
-            4. Escribe en español el diagnóstico en `triage.md` (raíz del workspace), con estas secciones:
+            4. Escribe en español el diagnóstico en `triage.md` (raíz del workspace). Este contenido se publicará
+               como comentario en el issue, así que DEBE estar en formato Markdown que GitHub (GFM) renderice bien:
+               encabezados `##`, listas, `código inline` y bloques de código con lenguaje. Con estas secciones:
                ## Resumen
                ## Clasificación (labels aplicados y por qué)
                ## Áreas de código afectadas (archivo + funciones, p.ej. `tryRotate`, `clearLines` en `game.js`)
