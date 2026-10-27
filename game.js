@@ -39,6 +39,10 @@ const overlay = document.getElementById('overlay');
 const overlayTitle = document.getElementById('overlay-title');
 const overlayScore = document.getElementById('overlay-score');
 const restartBtn = document.getElementById('restart-btn');
+const themeToggle = document.getElementById('theme-toggle');
+
+const GRID_COLORS = { dark: '#22222e', light: '#e2e4ee' };
+let theme = 'dark';
 
 let board, current, next, score, lines, level, paused, gameOver, lastTime, dropAccum, dropInterval, animId;
 
@@ -169,7 +173,7 @@ function drawBlock(context, x, y, colorIndex, size, alpha) {
 }
 
 function drawGrid() {
-  ctx.strokeStyle = '#22222e';
+  ctx.strokeStyle = GRID_COLORS[theme];
   ctx.lineWidth = 0.5;
   for (let c = 1; c < COLS; c++) {
     ctx.beginPath();
@@ -216,6 +220,16 @@ function drawNext() {
   for (let r = 0; r < shape.length; r++)
     for (let c = 0; c < shape[r].length; c++)
       drawBlock(nextCtx, offX + c, offY + r, shape[r][c], NB);
+}
+
+function applyTheme(t) {
+  theme = t;
+  document.documentElement.dataset.theme = t;
+  const light = t === 'light';
+  themeToggle.textContent = light ? '☾ Oscuro' : '☀ Claro';
+  themeToggle.setAttribute('aria-pressed', String(light));
+  themeToggle.setAttribute('aria-label', light ? 'Cambiar a modo oscuro' : 'Cambiar a modo claro');
+  if (current && next) { draw(); drawNext(); }
 }
 
 function endGame() {
@@ -300,5 +314,11 @@ document.addEventListener('keydown', e => {
 });
 
 restartBtn.addEventListener('click', init);
+themeToggle.addEventListener('click', () => {
+  applyTheme(theme === 'dark' ? 'light' : 'dark');
+  themeToggle.blur(); // evita que Space reactive el botón en vez de hacer hard drop
+});
+
+applyTheme('dark');
 
 init();

@@ -12,7 +12,7 @@ Open `index.html` directly, or serve statically: `python -m http.server 8000` �
 
 ## Architecture
 
-All logic is in `game.js` (single script, global state, `'use strict'`); `index.html` supplies DOM ids it looks up at load (`board`, `next-canvas`, `score`, `lines`, `level`, `overlay`, `overlay-title`, `overlay-score`, `restart-btn`).
+All logic is in `game.js` (single script, global state, `'use strict'`); `index.html` supplies DOM ids it looks up at load (`board`, `next-canvas`, `score`, `lines`, `level`, `overlay`, `overlay-title`, `overlay-score`, `restart-btn`, `theme-toggle`).
 
 - Board: `ROWS×COLS` matrix; `0` = empty, `1–7` = index into `COLORS`/`PIECES` (index 0 is `null` in both).
 - Piece: `{type, shape, x, y}`; `shape` is a matrix holding its own color index. Rotation via `rotateCW` + simple kicks `[0,-1,1,-2,2]` in `tryRotate`.
