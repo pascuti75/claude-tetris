@@ -12,7 +12,7 @@ Open `index.html` directly, or serve statically: `python -m http.server 8000` �
 
 ## Architecture
 
-All logic is in `game.js` (single script, global state, `'use strict'`); `index.html` supplies DOM ids it looks up at load (`board`, `next-canvas`, `score`, `lines`, `level`, `overlay`, `overlay-title`, `overlay-score`, `restart-btn`, `theme-toggle`).
+All logic is in `game.js` (single script, global state, `'use strict'`); `index.html` supplies DOM ids it looks up at load (`board`, `next-canvas`, `score`, `lines`, `level`, `overlay`, `overlay-title`, `overlay-score`, `restart-btn`, `theme-toggle`, `skin-select`).
 
 - Board: `ROWS×COLS` matrix; `0` = empty, `1–7` = index into `COLORS`/`PIECES` (index 0 is `null` in both).
 - Piece: `{type, shape, x, y}`; `shape` is a matrix holding its own color index. Rotation via `rotateCW` + simple kicks `[0,-1,1,-2,2]` in `tryRotate`.
@@ -23,4 +23,5 @@ All logic is in `game.js` (single script, global state, `'use strict'`); `index.
 ## Gotchas
 
 - Changing `COLS`/`ROWS`/`BLOCK` requires manually updating the `<canvas id="board">` width/height in `index.html` (`COLS*BLOCK` × `ROWS*BLOCK`). The next-piece canvas is a fixed 120×120 (4×4 cells of 30px, hardcoded `NB` in `drawNext`).
-- Adding/removing a piece type means updating `COLORS`, `PIECES`, and the `* 7 + 1` in `randomPiece`.
+- Skins: `SKINS` (retro/neon/pastel/pixel) in `game.js` section `// ---- Skins ----`; each has `colors[9]`, `grid` per theme and `drawBlock`. Global `drawBlock` dispatches to `SKINS[skin]`. `applySkin` sets `data-skin` on `<html>` (neon black board bg in CSS) and persists to localStorage `tetris-skin`. Orthogonal to light/dark `theme`.
+- Adding/removing a piece type means updating `COLORS` (retro), every skin's `colors` in `SKINS`, `PIECES`, and the `* 8 + 1` in `randomPiece`.

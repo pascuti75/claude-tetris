@@ -38,6 +38,7 @@ Es una versión jugable del Tetris clásico con todas las mecánicas que esperar
 - **Rotación** con _wall kicks_ básicos (pequeños desplazamientos para que la pieza pueda rotar pegada a la pared).
 - **Soft drop** (bajada acelerada) y **hard drop** (caída instantánea).
 - **Pieza fantasma** (_ghost piece_): muestra dónde aterrizará la pieza actual.
+- **Skins visuales** (selector en el panel lateral): Retro, Neón (glow sobre fondo negro), Pastel (bloques redondeados) y Pixel art (textura sobre cada bloque). Se guarda en `localStorage` y funciona con el tema claro/oscuro.
 - **Vista previa** de la siguiente pieza.
 - **Sistema de puntuación** clásico de Tetris (100 / 300 / 500 / 800 multiplicado por nivel).
 - **Niveles** que aumentan cada 10 líneas y aceleran la caída.
