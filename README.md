@@ -166,6 +166,10 @@ Cuando una pieza recién generada ya colisiona al aparecer (`spawn`), se dispara
 
 ---
 
+## Records
+
+Top 5 de puntuaciones guardado en `localStorage` (clave `tetris-records`): nombre al game over, mejor combo y líneas máximas. Se muestra en la pantalla de inicio y al terminar; botón "Resetear records" para borrarlos.
+
 ## Personalización
 
 Algunos parámetros fáciles de tunear en `game.js`:
