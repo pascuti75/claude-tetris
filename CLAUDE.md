@@ -12,12 +12,12 @@ Open `index.html` directly, or serve statically: `python -m http.server 8000` �
 
 ## Architecture
 
-All logic is in `game.js` (single script, global state, `'use strict'`); `index.html` supplies DOM ids it looks up at load (`board`, `next-canvas`, `score`, `lines`, `level`, `overlay`, `overlay-title`, `overlay-score`, `restart-btn`, `theme-toggle`).
+All logic is in `game.js` (single script, global state, `'use strict'`); `index.html` supplies DOM ids it looks up at load (`board`, `next-canvas`, `score`, `lines`, `level`, `overlay`, `overlay-title`, `overlay-score`, `restart-btn`, `theme-toggle`, `pause-menu`, `resume-btn`, `pause-restart-btn`, `controls-btn`, `controls-list`, `start-level-down`, `start-level-up`, `start-level`).
 
 - Board: `ROWS×COLS` matrix; `0` = empty, `1–7` = index into `COLORS`/`PIECES` (index 0 is `null` in both).
 - Piece: `{type, shape, x, y}`; `shape` is a matrix holding its own color index. Rotation via `rotateCW` + simple kicks `[0,-1,1,-2,2]` in `tryRotate`.
 - Flow: `init()` → rAF `loop` accumulates dt vs `dropInterval` → gravity or `lockPiece()` (`merge` → `clearLines` → `spawn`). `spawn()` calling `endGame()` on collision is the game-over condition.
-- Pause/game over both use the same `#overlay`; `togglePause` and `endGame` cancel/restart the rAF (`animId`). `init` is also the restart handler.
+- Pause uses its own `#pause-menu` (P/Escape; Reanudar/Reiniciar/Ver controles/Nivel inicial -> `startLevel`, used by `init`; `level` never drops below it). Game over uses `#overlay`; `togglePause` and `endGame` cancel/restart the rAF (`animId`). `init` is also the restart handler.
 - Speed: `dropInterval = max(100, 1000 - (level-1)*90)`; level = `floor(lines/10)+1`.
 
 ## Gotchas
